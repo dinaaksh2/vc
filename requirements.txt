@@ -1,0 +1,19 @@
+tts==0.22.0
+torch==2.5.1
+flask
+dvc
+notebook
+numpy
+matplotlib
+seaborn
+pandas  
+python-box
+pyYAML
+tqdm
+ensure
+joblib
+scipy
+flask-Cors
+types-PyYAML
+
+-e .
