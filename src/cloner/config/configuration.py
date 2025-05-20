@@ -1,6 +1,6 @@
 from cloner.constants import *
 from cloner.utils.common import read_yaml, create_directories
-from cloner.entity.config_entity import DataIngestionConfig
+from cloner.entity.config_entity import DataIngestionConfig, DataPreProcessConfig
 class ConfigurationManager:
     def __init__(
             self,
@@ -24,3 +24,15 @@ class ConfigurationManager:
           ) 
 
           return data_ingestion_config 
+    
+    def get_data_preprocess_config(self)-> DataPreProcessConfig:
+          config=self.config.data_preprocessing 
+          create_directories([config.root_dir]) 
+
+          data_preprocess_config=DataPreProcessConfig(
+                root_dir=config.root_dir,
+                processed_audio_dir=config.processed_audio_dir,
+                audio_path=config.audio_path
+          ) 
+
+          return data_preprocess_config

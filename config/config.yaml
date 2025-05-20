@@ -6,4 +6,7 @@ data_ingestion:
   local_data_file: artifacts/data_ingestion/data.zip
   unzip_dir: artifacts/data_ingestion
 
-  
+data_preprocessing:
+  root_dir: artifacts/data_preprocessing
+  processed_audio_dir: artifacts/data_preprocessing/processed_audio
+  audio_path: artifacts/data_ingestion/LJSpeech-1.1/wavs

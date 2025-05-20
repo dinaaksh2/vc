@@ -7,3 +7,9 @@ class DataIngestionConfig:
     source_URL:str
     local_data_file:Path
     unzip_dir:Path
+
+@dataclass(frozen=True)
+class DataPreProcessConfig:
+    root_dir:Path
+    processed_audio_dir:Path
+    audio_path:Path

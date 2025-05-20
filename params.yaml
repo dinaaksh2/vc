@@ -1,1 +1,24 @@
-key: val
+tune_params:
+  sample_rate: 22050
+  num_mels: 80
+  fft_size: 2400
+  frame_length_ms: 50
+  frame_shift_ms: 12.5
+  hop_length: null
+  win_length: 1024
+  preemphasis: 0.98
+  min_level_db: -100
+  ref_level_db: 0
+  power: 1.5
+  griffin_lim_iters: 60
+  mel_fmin: 0.0
+  mel_fmax: 8000.0
+  do_trim_silence: true
+
+reset:
+  signal_norm: True  
+  stats_path: null
+  symmetric_norm: False
+  max_norm: 1
+  clip_norm: True
+
