@@ -25,7 +25,8 @@ class DataPreprocessor:
         tuned_config.update(self.params.get("reset", {}))
         tuned_config.update(self.params.get("tune_params", {}))
         logger.info("Initialized AudioProcessor with tuned config.")
-        return AudioProcessor(**tuned_config)
+        self.audio_processor = AudioProcessor(**tuned_config)
+        return self.audio_processor
     
     def melspectrogram(self, audio_path):
         logger.info(f"Generating mel-spectrogram for: {audio_path}")

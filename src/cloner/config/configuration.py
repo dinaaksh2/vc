@@ -1,6 +1,6 @@
 from cloner.constants import *
 from cloner.utils.common import read_yaml, create_directories
-from cloner.entity.config_entity import DataIngestionConfig, DataPreProcessConfig
+from cloner.entity.config_entity import DataIngestionConfig, DataPreProcessConfig, ModelTrainingConfig
 class ConfigurationManager:
     def __init__(
             self,
@@ -36,3 +36,18 @@ class ConfigurationManager:
           ) 
 
           return data_preprocess_config
+    
+    def get_model_training_config(self)-> ModelTrainingConfig:
+          config=self.config.model_training
+          create_directories([config.root_dir]) 
+
+          model_training_config=ModelTrainingConfig( 
+                root_dir= config.root_dir,
+                output_dir= config.output_dir,
+                phoneme_cache_path= config.phoneme_cache_path,
+                dataset_name= config.dataset_name,
+                dataset_path= config.dataset_path,
+                metadata_path= config.metadata_path
+                ) 
+
+          return model_training_config

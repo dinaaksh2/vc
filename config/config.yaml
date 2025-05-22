@@ -10,3 +10,12 @@ data_preprocessing:
   root_dir: artifacts/data_preprocessing
   processed_audio_dir: artifacts/data_preprocessing/processed_audio
   audio_path: artifacts/data_ingestion/LJSpeech-1.1/wavs
+
+model_training:
+  root_dir: artifacts/model_training
+  output_dir: artifacts/model_training/output
+  phoneme_cache_path: artifacts/model_training/phoneme_cache
+  dataset_name: ljspeech
+  dataset_path: artifacts/data_ingestion/LJSpeech-1.1
+  metadata_path: metadata.csv
+
