@@ -18,4 +18,5 @@ model_training:
   dataset_name: ljspeech
   dataset_path: artifacts/data_ingestion/LJSpeech-1.1
   metadata_path: metadata.csv
+  restore_path: artifacts/model_training/output/vits_ljspeech-May-22-2025_03+13PM-b0c777f/best_model.pth
 

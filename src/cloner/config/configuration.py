@@ -47,7 +47,8 @@ class ConfigurationManager:
                 phoneme_cache_path= config.phoneme_cache_path,
                 dataset_name= config.dataset_name,
                 dataset_path= config.dataset_path,
-                metadata_path= config.metadata_path
+                metadata_path= config.metadata_path,
+                restore_path= config.restore_path
                 ) 
 
           return model_training_config

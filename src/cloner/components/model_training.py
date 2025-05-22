@@ -11,6 +11,7 @@ from cloner.entity.config_entity import DataPreProcessConfig
 from cloner.config.configuration import ModelTrainingConfig
 from cloner.constants import *
 from cloner.utils.common import read_yaml
+import torch
 
 import os
 
@@ -97,30 +98,50 @@ class ModelConfig:
             )
         return self._train_samples,self._eval_samples
     
-    def get_model(self):
+    def get_model(self, checkpoint_path=None):
         if self._model is None:
             config=self.vits_config
             ap=self.get_audio_processor()
             tokenizer=self.get_tokenizer()
             self._model=Vits(config,ap,tokenizer,speaker_manager=None)
             return self._model
+        if checkpoint_path:
+            checkpoint=torch.load(checkpoint_path)
+            self._model.load_state_dict(checkpoint['model_state_dict'])
+            epoch=checkpoint.get('epoch',0)
+            print(f"Resuming from checkpoint at epoch{epoch}")
+        return self._model
     
-    def get_trainer(self):
-        if self._trainer_instance is None:
-            train_samples,eval_samples=self.get_data_split()
-            self._trainer_instance=Trainer(
-                TrainerArgs(),
-                config=self.vits_config,
-                output_path=self.config.output_dir,
-                model=self.get_model(),
-                train_samples=train_samples,
-                eval_samples=eval_samples,
-                parse_command_line_args=False
-            )
-        return self._trainer_instance
+    def get_trainer(self, restore_path=None):
+        train_samples, eval_samples = self.get_data_split()
 
+        model = self.get_model()
+        
+        trainer_args = TrainerArgs()
+        trainer_args.restore_path = restore_path 
+        trainer_instance = Trainer(
+            trainer_args,
+            config=self.vits_config,
+            output_path=self.config.output_dir,
+            model=model,
+            train_samples=train_samples,
+            eval_samples=eval_samples,
+            parse_command_line_args=False
+        )
+        return trainer_instance
+    
+    def load_model_from_checkpoint(self, restore_path): 
+        if os.path.exists(restore_path):
+            checkpoint = torch.load(restore_path, map_location="cpu")
+            model = self.get_model()
+            model.load_state_dict(checkpoint["model"])
+            optimizer = checkpoint["optimizer"]
+            epoch = checkpoint["epoch"]
+            step = checkpoint["step"]
+            return model, optimizer, epoch, step
+        else:
+            return None, None, 0, 0
     def get_fit(self):
-        trainer=self.get_trainer()
-        if trainer is None:
-            raise ValueError("Trainer instance is None. Cannot start training.")
+        restore_path = getattr(self.config, "restore_path", None)
+        trainer = self.get_trainer(restore_path)
         trainer.fit()

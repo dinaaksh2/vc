@@ -22,3 +22,4 @@ class ModelTrainingConfig:
     dataset_name: str
     dataset_path: Path
     metadata_path: Path
+    restore_path: Path

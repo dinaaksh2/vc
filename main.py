@@ -24,7 +24,7 @@ if __name__ == '__main__':
         logger.exception(e)
         raise e 
 
-    STAGE_NAME="Model Configuration Stage"
+    STAGE_NAME="Model Implementation Stage"
     try:
         logger.info(f">>>>> stage {STAGE_NAME} started <<<<<")
         model_configuration=ModelConfiguration()
