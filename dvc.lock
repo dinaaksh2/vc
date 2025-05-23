@@ -1,0 +1,61 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/cloner/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 73f33a77395a3b54100509a06fd796a4
+      size: 853
+    - path: src/cloner/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: 782b27a8b41f6b625fca4efcd37ba80d
+      size: 851
+    outs:
+    - path: artifacts/data_ingestion/LJSpeech-1.1
+      hash: md5
+      md5: 66c578c3b09a04952105849be554bf76.dir
+      size: 183964344
+      nfiles: 830
+  data_preprocessing:
+    cmd: python src/cloner/pipeline/stage_02_data_preprocessing.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 73f33a77395a3b54100509a06fd796a4
+      size: 853
+    - path: params.yaml
+      hash: md5
+      md5: b403b53001384ca31bd53d1ac6c7e488
+      size: 1221
+    - path: src/cloner/pipeline/stage_02_data_preprocessing.py
+      hash: md5
+      md5: 8629d169bc9198cf5abe04b95c7b5c96
+      size: 882
+    outs:
+    - path: artifacts/data_preprocessing/processed_audio
+      hash: md5
+      md5: f7a8810a315b5797146bc96f7b0ec8f6.dir
+      size: 115142272
+      nfiles: 829
+  model_training:
+    cmd: python src/cloner/pipeline/stage_03_model_training.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: e1a9aed85e2f301d147368243f8f50c0
+      size: 765
+    - path: params.yaml
+      hash: md5
+      md5: b403b53001384ca31bd53d1ac6c7e488
+      size: 1221
+    - path: src/cloner/pipeline/stage_03_model_training.py
+      hash: md5
+      md5: 5f3c4f2c136cb23ee092243bf79dc79e
+      size: 937
+    outs:
+    - path: artifacts/model_training/output
+      hash: md5
+      md5: 2376689c7f61f1e4d6e66eb7b6781403.dir
+      size: 1997979140
+      nfiles: 835
